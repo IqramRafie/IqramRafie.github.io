@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iqram Bin Mohd Rafie — Software Engineer</title>
+<meta name="description" content="Portfolio of Iqram Bin Mohd Rafie — Computer Science graduate, backend & database developer, AI-integrated tooling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:            #0E1621;
+    --bg-alt:        #101B27;
+    --surface:       #16212C;
+    --surface-2:     #1C2A38;
+    --line:          #24333F;
+    --text:          #EAF1F5;
+    --text-muted:    #8FA0AC;
+    --text-dim:      #5D7080;
+    --signal:        #5EEAD4;   /* tracking / scan reticle */
+    --signal-dim:    rgba(94,234,212,0.14);
+    --amber:         #F5A623;   /* OCR highlight */
+    --amber-dim:     rgba(245,166,35,0.14);
+    --danger-dot:    #F16A6A;
+    --yellow-dot:    #F5C94E;
+    --green-dot:     #63D68A;
+    --radius:        10px;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity:0.06;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--signal-dim); color:var(--signal);}
+  :focus-visible{outline:2px solid var(--signal); outline-offset:3px; border-radius:4px;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:64px 0;} }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--signal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"//"; color:var(--text-dim);}
+
+  h1,h2,h3{font-family:var(--sans); font-weight:700; letter-spacing:-0.01em;}
+  h2{font-size:clamp(24px,3vw,32px); margin-bottom:36px;}
+  .h2-mono-tag{font-family:var(--mono); color:var(--text-dim); font-weight:400; font-size:0.55em; display:block; margin-top:4px;}
+
+  p{color:var(--text-muted);}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,22,33,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-brand{
+    font-family:var(--mono); font-size:14.5px; color:var(--text);
+    display:flex; align-items:center; gap:8px;
+  }
+  .nav-brand .dot{width:8px; height:8px; border-radius:50%; background:var(--signal); box-shadow:0 0 8px var(--signal);}
+  .nav-links{display:flex; gap:28px; list-style:none; font-family:var(--mono); font-size:13.5px;}
+  .nav-links a{color:var(--text-muted); text-decoration:none; transition:color .15s;}
+  .nav-links a:hover{color:var(--signal);}
+  .nav-cta{
+    font-family:var(--mono); font-size:13px; color:var(--bg);
+    background:var(--signal); padding:8px 14px; border-radius:6px;
+    text-decoration:none; font-weight:600;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .nav-cta:hover{transform:translateY(-1px); box-shadow:0 4px 16px var(--signal-dim);}
+  .nav-toggle{display:none; background:none; border:1px solid var(--line); color:var(--text); border-radius:6px; padding:6px 10px; font-family:var(--mono); font-size:13px;}
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+    .nav-links.open{
+      display:flex; flex-direction:column; gap:0;
+      position:absolute; top:56px; left:0; right:0;
+      background:var(--bg-alt); border-bottom:1px solid var(--line);
+      padding:8px 28px 16px;
+    }
+    .nav-links.open a{padding:10px 0; border-bottom:1px solid var(--line);}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:72px 0 88px;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:44px; align-items:stretch;
+  }
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 14px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--line);
+  }
+  .tdot{width:10px; height:10px; border-radius:50%;}
+  .tdot.r{background:var(--danger-dot);} .tdot.y{background:var(--yellow-dot);} .tdot.g{background:var(--green-dot);}
+  .terminal-title{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-left:8px;
+  }
+  .terminal-body{
+    padding:26px 24px 30px;
+    font-family:var(--mono); font-size:14.5px;
+    min-height:230px;
+  }
+  .terminal-body .line{margin-bottom:14px; white-space:pre-wrap;}
+  .prompt{color:var(--signal);}
+  .prompt::before{content:"$ ";}
+  .out{color:var(--text); font-weight:500;}
+  .out.dim{color:var(--text-muted); font-weight:400;}
+  .cursor{display:inline-block; width:8px; height:16px; background:var(--signal); vertical-align:-3px; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero-actions{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13.5px; font-weight:600;
+    padding:11px 18px; border-radius:7px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s, box-shadow .15s, background .15s;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--signal); color:var(--bg);}
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 6px 20px var(--signal-dim);}
+  .btn-ghost{background:transparent; border-color:var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--signal); color:var(--signal);}
+
+  /* frame panel — nod to the video-steganography project */
+  .frame-panel{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .frame-viewport{
+    position:relative;
+    flex:1;
+    min-height:280px;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(94,234,212,0.10), transparent 55%),
+      radial-gradient(circle at 75% 80%, rgba(245,166,35,0.10), transparent 55%),
+      #101B27;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .monogram{
+    font-family:var(--mono); font-weight:700; font-size:96px;
+    color:var(--text); opacity:0.92; letter-spacing:-2px;
+    position:relative; z-index:2;
+  }
+  .reticle{
+    position:absolute; inset:22px;
+    border:1px solid rgba(94,234,212,0.35);
+    border-radius:6px;
+  }
+  .reticle::before, .reticle::after,
+  .reticle .c1, .reticle .c2{
+    content:""; position:absolute; width:16px; height:16px;
+    border-color:var(--signal); border-style:solid;
+  }
+  .reticle::before{top:-1px; left:-1px; border-width:2px 0 0 2px;}
+  .reticle::after{top:-1px; right:-1px; border-width:2px 2px 0 0;}
+  .reticle .c1{bottom:-1px; left:-1px; border-width:0 0 2px 2px;}
+  .reticle .c2{bottom:-1px; right:-1px; border-width:0 2px 2px 0;}
+  .scanline{
+    position:absolute; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--signal), transparent);
+    box-shadow:0 0 12px 2px var(--signal);
+    animation:sweep 3.4s ease-in-out infinite;
+    z-index:3;
+  }
+  @keyframes sweep{
+    0%{top:6%; opacity:0;}
+    8%{opacity:1;}
+    50%{top:92%; opacity:1;}
+    58%{opacity:0;}
+    100%{top:6%; opacity:0;}
+  }
+  .frame-meta{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px;
+    border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
+    background:var(--surface-2);
+  }
+  .frame-meta .fc::before{content:"frame_"; }
+  @media (prefers-reduced-motion: reduce){
+    .scanline, .cursor{animation:none;}
+  }
+
+  /* ---------- QUICK FACTS ---------- */
+  .facts{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden; margin-top:56px;
+  }
+  @media (max-width:760px){ .facts{grid-template-columns:repeat(2,1fr);} }
+  .fact{background:var(--surface); padding:22px 20px;}
+  .fact .k{font-family:var(--mono); font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;}
+  .fact .v{font-size:15px; font-weight:600; color:var(--text);}
+  .fact .v.small{font-size:13px; font-weight:500; color:var(--text-muted);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px;}
+  @media (max-width:800px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{margin-bottom:16px; font-size:15.5px;}
+  .edu-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 22px; margin-bottom:14px;
+  }
+  .edu-card .school{font-weight:600; font-size:14.5px; margin-bottom:4px;}
+  .edu-card .deg{font-size:13.5px; color:var(--text-muted); margin-bottom:8px;}
+  .edu-card .meta{font-family:var(--mono); font-size:12px; color:var(--signal); display:flex; justify-content:space-between;}
+
+  /* ---------- EXPERIENCE (session log) ---------- */
+  .log{border-left:1px solid var(--line); margin-left:6px;}
+  .log-entry{position:relative; padding:0 0 40px 32px;}
+  .log-entry:last-child{padding-bottom:0;}
+  .log-entry::before{
+    content:""; position:absolute; left:-6px; top:4px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--signal);
+  }
+  .log-entry.current::before{background:var(--signal); box-shadow:0 0 0 4px var(--signal-dim);}
+  .log-date{font-family:var(--mono); font-size:12px; color:var(--amber); margin-bottom:6px; letter-spacing:0.02em;}
+  .log-role{font-size:17px; font-weight:700; margin-bottom:2px;}
+  .log-org{font-size:14px; color:var(--text-muted); margin-bottom:12px;}
+  .log-org .loc{color:var(--text-dim);}
+  .log-bullets{list-style:none;}
+  .log-bullets li{
+    position:relative; padding-left:18px; margin-bottom:8px;
+    font-size:14.5px; color:var(--text-muted);
+  }
+  .log-bullets li::before{content:"›"; position:absolute; left:0; color:var(--signal); font-family:var(--mono);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  @media (max-width:800px){ .proj-grid{grid-template-columns:1fr;} }
+  .proj-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; position:relative; overflow:hidden;
+    transition:border-color .2s, transform .2s;
+  }
+  .proj-card:hover{border-color:rgba(94,234,212,0.4); transform:translateY(-3px);}
+  .proj-card.featured{grid-column:1 / -1; background:linear-gradient(135deg, var(--surface) 60%, var(--surface-2));}
+  .proj-tag{
+    font-family:var(--mono); font-size:11px; color:var(--signal);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px; display:block;
+  }
+  .proj-card h3{font-size:18px; margin-bottom:10px;}
+  .proj-card p{font-size:14.5px; margin-bottom:16px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:11.5px; color:var(--text-muted);
+    background:var(--surface-2); border:1px solid var(--line);
+    padding:4px 10px; border-radius:20px;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-term{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .skills-body{padding:28px 26px; font-family:var(--mono); font-size:14px;}
+  .skill-row{display:grid; grid-template-columns:170px 1fr; gap:18px; padding:14px 0; border-bottom:1px solid var(--line); align-items:start;}
+  .skill-row:last-child{border-bottom:none;}
+  @media (max-width:640px){ .skill-row{grid-template-columns:1fr;} }
+  .skill-key{color:var(--amber);}
+  .skill-key::before{content:"--"; color:var(--text-dim);}
+  .skill-val{color:var(--text); display:flex; flex-wrap:wrap; gap:8px 14px; line-height:1.9;}
+  .skill-val span{color:var(--text-muted);}
+  .skill-val span::after{content:","; color:var(--text-dim);}
+  .skill-val span:last-child::after{content:"";}
+
+  /* ---------- HONORS ---------- */
+  .honors-list{list-style:none; display:grid; gap:14px;}
+  .honors-list li{
+    display:flex; gap:14px; align-items:baseline;
+    padding:16px 18px; background:var(--surface); border:1px solid var(--line); border-radius:8px;
+    font-size:14.5px; color:var(--text-muted);
+  }
+  .honors-list li .yr{font-family:var(--mono); color:var(--signal); font-size:12.5px; min-width:78px;}
+  .honors-list li strong{color:var(--text); font-weight:600;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:44px; text-align:center;
+  }
+  .contact-box h2{margin-bottom:12px;}
+  .contact-box p{max-width:520px; margin:0 auto 28px;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0; text-align:center;
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="dot"></span>iqram@portfolio:~</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:iqram.mohdrafie@gmail.com">say hi ↗</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">menu</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+            <span class="terminal-title">iqram — zsh — 82×24</span>
+          </div>
+          <div class="terminal-body" id="typedTerminal"></div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">view projects</a>
+          <a class="btn btn-ghost" href="mailto:iqram.mohdrafie@gmail.com">contact me</a>
+          <a class="btn btn-ghost" href="https://linkedin.com/in/iqram-rafie" target="_blank" rel="noopener">linkedin ↗</a>
+        </div>
+      </div>
+
+      <div class="frame-panel">
+        <div class="frame-viewport">
+          <div class="scanline"></div>
+          <div class="reticle"><span class="c1"></span><span class="c2"></span></div>
+          <div class="monogram">IR</div>
+        </div>
+        <div class="frame-meta">
+          <span>steganography_demo.mp4</span>
+          <span class="fc" id="frameCounter">0032</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><div class="k">Based in</div><div class="v small">Kulai, Johor, MY</div></div>
+      <div class="fact"><div class="k">Status</div><div class="v small">Open to relocation</div></div>
+      <div class="fact"><div class="k">Track</div><div class="v small">Software Engineering</div></div>
+      <div class="fact"><div class="k">Focus</div><div class="v small">Backend · Databases · AI tooling</div></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="eyebrow">01 · about</div>
+    <h2>Fresh out of the pipeline, already shipping</h2>
+    <div class="about-grid">
+      <div>
+        <p>I'm a Computer Science graduate from Universiti Malaysia Pahang Al-Sultan Abdullah, majoring in Software Engineering. Most of my university and internship work sits at the backend and database layer — building the systems other people's screens quietly depend on.</p>
+        <p>My final year project combined video steganography with machine learning: hiding data inside video frames using LSB encoding, then using motion tracking and classifiers (Random Forest, Decision Tree, SVM) to keep the hidden signal secure without breaking the footage. That mix of security thinking and applied ML is the direction I want to keep building in.</p>
+        <p>Outside of coursework, I've spent time on the factory floor as much as in the IDE — building barcode systems and inventory tools that had to work reliably for people who weren't developers themselves.</p>
+      </div>
+      <div>
+        <div class="edu-card">
+          <div class="school">Universiti Malaysia Pahang Al-Sultan Abdullah</div>
+          <div class="deg">Bachelor's in Computer Science (Software Engineering), With Honours — Current</div>
+          <div class="meta"><span>CGPA 3.41 / 4.0</span><span>Pekan, Pahang</span></div>
+        </div>
+        <div class="edu-card">
+          <div class="school">Universiti Malaysia Pahang Al-Sultan Abdullah</div>
+          <div class="deg">Diploma in Computer Science — Feb 2023</div>
+          <div class="meta"><span>CGPA 3.67 / 4.0</span><span>Pekan, Pahang</span></div>
+        </div>
+        <div class="edu-card">
+          <div class="school">Languages</div>
+          <div class="deg">Bahasa Melayu (Native) · English (Intermediate)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="eyebrow">02 · experience</div>
+    <h2>Session log</h2>
+    <div class="log">
+
+      <div class="log-entry current">
+        <div class="log-date">MAY 2026 — PRESENT</div>
+        <div class="log-role">IT Support Intern</div>
+        <div class="log-org">Teknoware Asia Sdn Bhd</div>
+        <ul class="log-bullets">
+          <li>Provide daily IT support across hardware, software, network, and system issues</li>
+          <li>Install, configure, and troubleshoot computers, printers, and IT equipment</li>
+          <li>Maintain systems, networks, and IT inventory documentation</li>
+          <li>Support the IT team on ongoing projects and operational tasks</li>
+        </ul>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">MARCH 2026 — MAY 2026</div>
+        <div class="log-role">Software Engineering Intern</div>
+        <div class="log-org">Imagine AI Sdn Bhd</div>
+        <ul class="log-bullets">
+          <li>Built a proof of concept for an OCR Studio application</li>
+          <li>Integrated the app with an AI model using Ollama and Qwen</li>
+          <li>Enabled vector database support for OCR search using PostgreSQL</li>
+        </ul>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">OCTOBER 2023 — MAY 2024</div>
+        <div class="log-role">Back-end Developer</div>
+        <div class="log-org">Cybersphere Solutions Sdn Bhd <span class="loc">· Pekan, Pahang</span></div>
+        <ul class="log-bullets">
+          <li>Helped develop DietMate, a diet-management system for diabetic patients</li>
+        </ul>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">AUGUST 2022 — MARCH 2023</div>
+        <div class="log-role">IT Practical Trainee</div>
+        <div class="log-org">J.K. Wire Harness Sdn Bhd <span class="loc">· Johor Bahru, Johor</span></div>
+        <ul class="log-bullets">
+          <li>Gave first-level IT support to reduce staff downtime</li>
+          <li>Built the Technical Barcode Machine System (TBMS) to lift assembly-line productivity</li>
+          <li>Built the Terminal Cable Interface Calculator (TCIC) to cut human error in inventory</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="eyebrow">03 · projects</div>
+    <h2>Selected work</h2>
+    <div class="proj-grid">
+
+      <div class="proj-card featured">
+        <span class="proj-tag">Final year project</span>
+        <h3>Video Steganography + Motion Tracking</h3>
+        <p>Enhances the security and privacy of video steganography by embedding data with LSB encoding, then applying motion tracking and machine-learning classifiers to keep hidden data intact under movement without visibly altering the video.</p>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">LSB steganography</span>
+          <span class="chip">Random Forest</span><span class="chip">Decision Tree</span><span class="chip">SVM</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-tag">Imagine AI Sdn Bhd</span>
+        <h3>OCR Studio (POC)</h3>
+        <p>A proof-of-concept OCR application integrating a local LLM stack for document understanding, backed by a vector database for retrieval.</p>
+        <div class="chip-row">
+          <span class="chip">Ollama</span><span class="chip">Qwen</span><span class="chip">PostgreSQL</span><span class="chip">pgvector</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-tag">Cybersphere Solutions</span>
+        <h3>DietMate</h3>
+        <p>Backend work on a system that helps diabetic patients plan and track meals against their health data.</p>
+        <div class="chip-row">
+          <span class="chip">Back-end</span><span class="chip">Healthcare</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-tag">J.K. Wire Harness</span>
+        <h3>TBMS &amp; TCIC</h3>
+        <p>A barcode-driven production system and a terminal cable calculator built for the assembly and inventory departments, replacing manual, error-prone steps.</p>
+        <div class="chip-row">
+          <span class="chip">C#</span><span class="chip">.NET Framework</span><span class="chip">Barcode systems</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <span class="proj-tag">Diploma final year project</span>
+        <h3>E-Tasmik</h3>
+        <p>A Laravel web app that helps primary school students track their Quran memorization (tasmik) progress.</p>
+        <div class="chip-row">
+          <span class="chip">Laravel</span><span class="chip">PHP</span><span class="chip">MySQL</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="eyebrow">04 · skills</div>
+    <h2>skills --list <span style="color:var(--text-dim); font-family:var(--mono); font-size:0.5em; font-weight:400;">--verbose</span></h2>
+    <div class="skills-term">
+      <div class="terminal-bar">
+        <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+        <span class="terminal-title">output</span>
+      </div>
+      <div class="skills-body">
+        <div class="skill-row">
+          <div class="skill-key">languages</div>
+          <div class="skill-val"><span>C</span><span>C#</span><span>PHP</span><span>Python</span><span>MATLAB</span><span>JavaScript</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-key">frameworks</div>
+          <div class="skill-val"><span>ASP.NET</span><span>.NET Framework</span><span>Laravel</span><span>jQuery</span><span>AJAX</span><span>JSON</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-key">databases</div>
+          <div class="skill-val"><span>MSSQL</span><span>MySQL</span><span>PostgreSQL</span><span>SQLite</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-key">ai / tooling</div>
+          <div class="skill-val"><span>Ollama</span><span>Qwen</span><span>Vector databases</span><span>Machine learning classifiers</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONORS -->
+  <section id="honors">
+    <div class="eyebrow">05 · honors &amp; activities</div>
+    <h2>Track record</h2>
+    <ul class="honors-list">
+      <li><span class="yr">2021–2025</span><span><strong>Dean's List</strong> — five consecutive years</span></li>
+      <li><span class="yr">Nov 2023</span><span><strong>Facilitator, Scratch Program</strong> — Faculty of Computing, supervised 30+ students and supported guardians through the program</span></li>
+      <li><span class="yr">2022</span><span><strong>Participant, V-Hack</strong> — national hackathon</span></li>
+      <li><span class="yr">2022</span><span><strong>Participant, F.I.N.A.L.E</strong></span></li>
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-box">
+      <div class="eyebrow" style="justify-content:center;">06 · contact</div>
+      <h2>Let's build something</h2>
+      <p>Looking for an entry-level role in software, AI, or ML development. Open to relocating anywhere in Malaysia. References available on request.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:iqram.mohdrafie@gmail.com">iqram.mohdrafie@gmail.com</a>
+        <a class="btn btn-ghost" href="tel:+60137727632">(013) 772 7632</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/iqram-rafie" target="_blank" rel="noopener">linkedin.com/in/iqram-rafie ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  built by iqram bin mohd rafie · kulai, johor · <span id="year"></span>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // terminal typewriter
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const term = document.getElementById('typedTerminal');
+  const script = [
+    { p: true,  t: 'whoami' },
+    { p: false, t: 'Iqram Bin Mohd Rafie' },
+    { p: true,  t: 'cat status.txt' },
+    { p: false, t: 'Computer Science graduate — Software Engineering track.\nBuilding backend systems, databases, and AI-integrated tools.' },
+    { p: true,  t: 'echo $LOCATION' },
+    { p: false, t: 'Kulai, Johor, Malaysia — willing to relocate', dim:true }
+  ];
+
+  function render(){
+    term.innerHTML = '';
+    script.forEach(line => {
+      const div = document.createElement('div');
+      div.className = 'line';
+      if(line.p){
+        div.innerHTML = '<span class="prompt">' + line.t + '</span>';
+      } else {
+        div.innerHTML = '<span class="out' + (line.dim ? ' dim' : '') + '">' + line.t.replace(/\n/g,'<br>') + '</span>';
+      }
+      term.appendChild(div);
+    });
+    const cur = document.createElement('span');
+    cur.className = 'cursor';
+    term.appendChild(cur);
+  }
+
+  if(reduceMotion){
+    render();
+  } else {
+    let li = 0;
+    function typeLine(){
+      if(li >= script.length){ 
+        const cur = document.createElement('span');
+        cur.className = 'cursor';
+        term.appendChild(cur);
+        return;
+      }
+      const line = script[li];
+      const div = document.createElement('div');
+      div.className = 'line';
+      const span = document.createElement('span');
+      span.className = line.p ? 'prompt' : ('out' + (line.dim ? ' dim' : ''));
+      div.appendChild(span);
+      term.appendChild(div);
+      const text = line.t;
+      let ci = 0;
+      const speed = line.p ? 38 : 10;
+      (function typeChar(){
+        if(ci < text.length){
+          span.innerHTML += text[ci] === '\n' ? '<br>' : text[ci];
+          ci++;
+          setTimeout(typeChar, speed);
+        } else {
+          li++;
+          setTimeout(typeLine, line.p ? 250 : 400);
+        }
+      })();
+    }
+    typeLine();
+  }
+
+  // fake frame counter ticking on the video-frame panel
+  if(!reduceMotion){
+    const fc = document.getElementById('frameCounter');
+    let n = 32;
+    setInterval(() => {
+      n = (n + 1) % 999;
+      fc.textContent = String(n).padStart(4,'0');
+    }, 900);
+  }
+</script>
+
+</body>
+</html>
