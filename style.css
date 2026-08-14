@@ -180,10 +180,51 @@
     color:var(--text); opacity:0.92; letter-spacing:-2px;
     position:relative; z-index:2;
   }
+  .headshot{
+    position:relative; z-index:2;
+    width:100%; height:100%;
+    object-fit:contain;
+    object-position:center;
+    filter:grayscale(0.25) contrast(1.05);
+    mix-blend-mode:normal;
+  }
+  .headshot-wrap{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .headshot-wrap::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(14,22,33,0.55));
+    z-index:2;
+  }
+  .scan-mask{
+    position:absolute; inset:0; z-index:2;
+    display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(94,234,212,0.10), transparent 55%),
+      radial-gradient(circle at 75% 80%, rgba(245,166,35,0.10), transparent 55%),
+      #101B27;
+    clip-path: inset(0% 0 0 0);
+    animation: revealMask 6.5s cubic-bezier(.65,0,.35,1) infinite;
+  }
+  .scan-mask .tag{
+    position:absolute; bottom:14px; left:0; right:0; text-align:center;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.14em;
+    color:var(--text-dim); text-transform:uppercase;
+  }
+  @keyframes revealMask{
+    0%{   clip-path: inset(0% 0 0 0); }
+    42%{  clip-path: inset(100% 0 0 0); }
+    58%{  clip-path: inset(100% 0 0 0); }
+    60%{  clip-path: inset(0% 0 0 0); }
+    100%{ clip-path: inset(0% 0 0 0); }
+  }
   .reticle{
     position:absolute; inset:22px;
     border:1px solid rgba(94,234,212,0.35);
     border-radius:6px;
+    z-index:4;
   }
   .reticle::before, .reticle::after,
   .reticle .c1, .reticle .c2{
@@ -198,15 +239,16 @@
     position:absolute; left:0; right:0; height:2px;
     background:linear-gradient(90deg, transparent, var(--signal), transparent);
     box-shadow:0 0 12px 2px var(--signal);
-    animation:sweep 3.4s ease-in-out infinite;
+    animation:sweep 6.5s cubic-bezier(.65,0,.35,1) infinite;
     z-index:3;
   }
   @keyframes sweep{
-    0%{top:6%; opacity:0;}
-    8%{opacity:1;}
-    50%{top:92%; opacity:1;}
-    58%{opacity:0;}
-    100%{top:6%; opacity:0;}
+    0%{   top:5%;  opacity:0; }
+    4%{   opacity:1; }
+    42%{  top:95%; opacity:1; }
+    46%{  opacity:0; }
+    60%{  top:5%;  opacity:0; }
+    100%{ top:5%;  opacity:0; }
   }
   .frame-meta{
     display:flex; align-items:center; justify-content:space-between;
@@ -218,6 +260,7 @@
   .frame-meta .fc::before{content:"frame_"; }
   @media (prefers-reduced-motion: reduce){
     .scanline, .cursor{animation:none;}
+    .scan-mask{animation:none; clip-path: inset(100% 0 0 0);}
   }
 
   /* ---------- QUICK FACTS ---------- */

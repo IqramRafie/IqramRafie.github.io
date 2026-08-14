@@ -85,3 +85,36 @@ document.getElementById('year').textContent = new Date().getFullYear();
       fc.textContent = String(n).padStart(4,'0');
     }, 900);
   }
+
+
+
+
+  // photo carousel — swaps to the next photo each time the scan loop
+  // resets, timed to happen while the "IR" mask is fully covering the
+  // image so the swap is invisible.
+  const scanPhotos = [
+    'assets/Picture.jpg',
+    'assets/Picture2.jpeg',
+    'assets/Picture3.jpeg',
+  ];
+
+  if (scanPhotos.length > 1) {
+    const photoEl = document.querySelector('.headshot');
+    const cycleDuration = 6500;
+    const swapAt = cycleDuration * 0.65;
+    let idx = 0;
+
+    scanPhotos.forEach(src => { const im = new Image(); im.src = src; });
+
+    function swapPhoto(){
+      idx = (idx + 1) % scanPhotos.length;
+      photoEl.src = scanPhotos[idx];
+    }
+
+    if (!reduceMotion) {
+      setTimeout(function loop(){
+        swapPhoto();
+        setTimeout(loop, cycleDuration);
+      }, swapAt);
+    }
+  }
